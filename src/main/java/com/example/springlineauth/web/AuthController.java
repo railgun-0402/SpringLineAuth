@@ -1,27 +1,38 @@
 package com.example.springlineauth.web;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.example.springlineauth.service.AuthenticationService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 
 @Controller
 public class AuthController {
 
-    @Value("${line.channel-id}")
-    private String channelId;
+    private static final Logger LOG = LogManager.getLogger(AuthController.class.getName());
 
-    @Value("${line.redirect-uri}")
-    private String redirectUri;
+    private final AuthenticationService authenticationService;
+
+    public AuthController(AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
 
     @GetMapping("/login")
-    public String login() {
-        String lineLoginUrl = "https://access.line.me/oauth2/v2.1/authorize?response_type=code"
-                + "&client_id=" + channelId
-                + "&redirect_uri=" + redirectUri
-                + "&state=random_state_string"
-                + "&scope=openid%20profile";
-        return "redirect:" + lineLoginUrl;
+    public RedirectView login() {
+        String redirectUrl = "";
+
+        try {
+            redirectUrl = authenticationService.createAuthRedirectUrl();
+        } catch (NullPointerException e) {
+            LOG.warn("redirectURLがNULLです: {}", e.getMessage());
+            return new RedirectView("/", true);
+        }
+
+        LOG.debug("アカウント認証ページにリダイレクトします redirectUrl={}", redirectUrl);
+
+        return new RedirectView(redirectUrl);
     }
 
     @GetMapping("/login/callback")
