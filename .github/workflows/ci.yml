@@ -14,6 +14,7 @@ jobs:
     env:
       LINE_CLIENT_ID: ${{ secrets.LINE_CLIENT_ID }}
       LINE_CLIENT_SECRET: ${{ secrets.LINE_CLIENT_SECRET }}
+      REDIRECT_URI: ${{ secrets.REDIRECT_URI }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
