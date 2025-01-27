@@ -11,9 +11,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-  env:
-    LINE_CLIENT_ID: ${{ secrets.LINE_CLIENT_ID }}
-    LINE_CLIENT_SECRET: ${{ secrets.LINE_CLIENT_SECRET }}
+    env:
+      LINE_CLIENT_ID: ${{ secrets.LINE_CLIENT_ID }}
+      LINE_CLIENT_SECRET: ${{ secrets.LINE_CLIENT_SECRET }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
