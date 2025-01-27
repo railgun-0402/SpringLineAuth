@@ -28,4 +28,4 @@ jobs:
         uses: gradle/wrapper-validation-action@v1
 
       - name: Run Gradle tests
-        run: ./gradlew test
+        run: ./gradlew test -Dspring.profiles.active=ci
