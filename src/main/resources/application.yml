@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: SpringLineAuth
+
+line:
+  client_id: ${LINE_CLIENT_ID}
+  client-secret: ${LINE_CLIENT_SECRET}
+  redirect_uri: ${REDIRECT_URI}
