@@ -3,6 +3,6 @@ spring:
     name: SpringLineAuth
 
 line:
-  client_id: ${LINE_CLIENT_ID}
-  client-secret: ${LINE_CLIENT_SECRET}
-  redirect_uri: ${REDIRECT_URI}
+  client_id: ${LINE_CLIENT_ID:default}
+  client-secret: ${LINE_CLIENT_SECRET:default}
+  redirect_uri: ${REDIRECT_URI:default}
