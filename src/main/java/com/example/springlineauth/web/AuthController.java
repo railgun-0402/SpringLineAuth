@@ -37,7 +37,7 @@ public class AuthController {
 
     @GetMapping("/login/callback")
     public String callback(@RequestParam("code") String code, @RequestParam("state") String state) {
-        // TODO: ここでLINEのトークンエンドポイントにリクエストを送信し、アクセストークンを取得
+        // TODO: 受け取ったcodeやstateを使用してセッション照合を実施したい
         System.out.println("Authorization Code: " + code);
         return "auth/callback";
     }
