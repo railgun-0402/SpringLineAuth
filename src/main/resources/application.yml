@@ -4,5 +4,5 @@ spring:
 
 line:
   client_id: ${LINE_CLIENT_ID:default}
-  client-secret: ${LINE_CLIENT_SECRET}
+  client_secret: ${LINE_CLIENT_SECRET}
   redirect_uri: ${LINE_REDIRECT_URI:default}

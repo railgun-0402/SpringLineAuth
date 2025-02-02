@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ログインページ</title>
+</head>
+<body>
+<h1>ログイン</h1>
+<form action="/login" method="post">
+    <input type="text" name="username" placeholder="ユーザー名" required>
+    <input type="password" name="password" placeholder="パスワード" required>
+    <button type="submit">ログイン</button>
+</form>
+
+<!-- エラーメッセージ表示 -->
+<div style="color: red;">
+    <p th:if="${param.error}">ログインに失敗しました。再度お試しください。</p>
+    <p th:if="${param.logout}">ログアウトしました。</p>
+</div>
+</body>
+</html>
