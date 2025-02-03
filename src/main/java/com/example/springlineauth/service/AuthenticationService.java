@@ -1,10 +1,8 @@
 package com.example.springlineauth.service;
 
+import com.example.springlineauth.user.LineUserProfile;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -56,5 +54,29 @@ public class AuthenticationService {
         );
 
         return (String) Objects.requireNonNull(response.getBody()).get("access_token");
+    }
+
+    /**
+     * LINEのユーザープロファイル API にアクセス
+     * ユーザーのプロフィール情報（名前、ユーザーID、アイコン画像など）を取得
+     * @param accessToken アクセストークン
+     * @return ユーザ情報
+     */
+    public LineUserProfile getUserProfile(String accessToken) {
+        HttpHeaders headers = new HttpHeaders();
+        // ヘッダーの自動生成
+        headers.setBearerAuth(accessToken);
+
+        // HttpEntity: HTTPリクエストのヘッダーとボディをまとめるためのオブジェクト
+        HttpEntity<String> entity = new HttpEntity<>(headers); // GETの場合はBody不要
+
+        ResponseEntity<LineUserProfile> response = restTemplate.exchange(
+                "https://api.line.me/v2/profile",
+                HttpMethod.GET,
+                entity,
+                LineUserProfile.class
+        );
+
+        return response.getBody();
     }
 }
