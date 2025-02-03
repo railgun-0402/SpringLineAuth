@@ -1,6 +1,7 @@
 package com.example.springlineauth.web;
 
 import com.example.springlineauth.service.AuthenticationService;
+import com.example.springlineauth.user.LineUserProfile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -51,6 +52,9 @@ public class AuthController {
             System.out.println("アクセストークンが取れたよ: " + accessToken);
 
             // TODO: ユーザ情報取得
+            LineUserProfile profile = authenticationService.getUserProfile(accessToken);
+            System.out.println("ユーザプロファイルが取れたよ: " + profile);
+
             // TODO: ログイン処理
             // TODO: 成功時
 
