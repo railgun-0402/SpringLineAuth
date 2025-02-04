@@ -4,12 +4,16 @@ import com.example.springlineauth.service.AuthenticationService;
 import com.example.springlineauth.user.LineUserProfile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
+
+import java.util.List;
 
 @Controller
 public class AuthController {
@@ -51,20 +55,21 @@ public class AuthController {
             String accessToken = authenticationService.getAccessToken(code);
             System.out.println("アクセストークンが取れたよ: " + accessToken);
 
-            // TODO: ユーザ情報取得
             LineUserProfile profile = authenticationService.getUserProfile(accessToken);
             System.out.println("ユーザプロファイルが取れたよ: " + profile);
 
-            // TODO: ログイン処理
-            // TODO: 成功時
+            UsernamePasswordAuthenticationToken auth =
+                    new UsernamePasswordAuthenticationToken(profile.getUserId(), null, List.of());
 
+            SecurityContextHolder.getContext().setAuthentication(auth);
+            System.out.println("Authorization Code: " + code);
+
+            // ログイン成功時の処理
+            return "redirect:/dashboard"; // 認証後のページへリダイレクト
 
         } catch (Exception e) {
             // 認証失敗時
             return "redirect:/login?error=true";
         }
-
-        System.out.println("Authorization Code: " + code);
-        return "auth/callback";
     }
 }
