@@ -64,8 +64,8 @@ public class AuthController {
             SecurityContextHolder.getContext().setAuthentication(auth);
             System.out.println("Authorization Code: " + code);
 
-            // ログイン成功時の処理
-            return "redirect:/dashboard"; // 認証後のページへリダイレクト
+            // ログイン成功時は認証後ページへ
+            return "auth/callback";
 
         } catch (Exception e) {
             // 認証失敗時
