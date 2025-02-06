@@ -49,7 +49,6 @@ public class AuthController {
 
     @GetMapping("/login/callback")
     public String callback(@RequestParam("code") String code, @RequestParam("state") String state) {
-        // TODO: 受け取ったcodeやstateを使用してセッション照合を実施したい
         try {
             // アクセストークン取得
             String accessToken = authenticationService.getAccessToken(code);
