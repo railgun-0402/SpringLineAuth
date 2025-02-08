@@ -28,6 +28,17 @@ jobs:
       - name: Run Checkstyle
         run: ./gradlew check
 
+      - name: Run SpotBugs
+        run: |
+          ./gradlew spotbugsMain spotbugsTest
+        continue-on-error: true
+
+      - name: Upload SpotBugs report
+        uses: actions/upload-artifact@v3
+        with:
+          name: spotbugs-reports
+          path: build/reports/spotbugs
+
       - name: Set up Gradle
         uses: gradle/wrapper-validation-action@v1
 
