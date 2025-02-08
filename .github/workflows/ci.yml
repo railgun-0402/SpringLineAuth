@@ -30,7 +30,7 @@ jobs:
 
       - name: Run SpotBugs
         run: |
-          ./gradlew spotbugsMain spotbugsTest
+          ./gradlew SpringLineAuth spotbugsTest
         continue-on-error: true
 
       - name: Upload SpotBugs report
