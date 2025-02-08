@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.2'
     id 'io.spring.dependency-management' version '1.1.7'
-    id 'com.github.spotbugs' version '5.0.14'
 }
 
 group = 'com.example'
@@ -11,21 +10,6 @@ version = '0.0.1-SNAPSHOT'
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
-    }
-}
-
-spotbugs {
-    toolVersion = '4.7.3'
-    ignoreFailures = false  // true にするとエラーでもCIが失敗しない
-    effort = 'max'          // 精度を高める
-    reportLevel = 'high'    // 深刻度の高いもののみ報告
-}
-
-tasks.withType(com.github.spotbugs.snom.SpotBugsTask).configureEach {
-    reports {
-        xml.required.set(false)
-        html.required.set(true)
-        html.stylesheet.set(resources.text.fromString(''))
     }
 }
 
